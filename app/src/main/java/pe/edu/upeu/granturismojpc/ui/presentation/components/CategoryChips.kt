@@ -31,7 +31,8 @@ fun CategoryChips(navController: NavController) {
         "Almuerzo" to "servicioalimentacionmain",
         "Proveedor" to "proveedormain",
         "Servicio" to "serviciomain",
-        "Asocioacion" to "paquetemain"
+        "Asocioacion" to "paquetemain",
+        "Destinos" to "destinomainsc"
     )
 
     val icons = listOf(
@@ -41,7 +42,8 @@ fun CategoryChips(navController: NavController) {
         Icons.Filled.Restaurant,
         Icons.Filled.Person,
         Icons.Filled.Construction,
-        Icons.Filled.LocalConvenienceStore
+        Icons.Filled.LocalConvenienceStore,
+        Icons.Filled.LocationOn
     )
 
 

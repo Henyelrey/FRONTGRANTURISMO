@@ -13,6 +13,8 @@ import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla2
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla3
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla4
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla5
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.destino.DestinoForm
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.destino.DestinoMain
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.home.HomeScreen
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.home.HomeViewModel
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.login.LoginScreen
@@ -188,5 +190,26 @@ fun NavigationHost(
             ServicioHoteleraForm(text = servhotId, darkMode = darkMode,
                 navController=navController )
         }
+
+        composable(Destinations.DestinoMainSC.route) {
+            DestinoMain(
+                navController = navController,
+                navegarEditarAct = { id ->
+                    navController.navigate("destinoForm?destId=$id") // Por ejemplo
+                }
+            )
+        }
+        composable(Destinations.DestinoFormSC.route, arguments =
+            listOf(navArgument("destId"){
+                defaultValue="destId"
+            })){navBackStackEntry -> var
+                destId=navBackStackEntry.arguments?.getString("destId")
+            requireNotNull(destId)
+            DestinoForm(text = destId, darkMode = darkMode,
+                navController=navController )
+        }
+
+
+
     }
 }

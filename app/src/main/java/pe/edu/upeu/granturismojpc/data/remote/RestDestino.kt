@@ -23,6 +23,7 @@ interface RestDestino {
     @GET("${BASE_RUTA}/{id}")
     suspend fun getDestinoId(@Header("Authorization")
                                token:String, @Path("id") id:Long): Response<DestinoResp>
+
     @DELETE("${BASE_RUTA}/{id}")
     suspend fun deleteDestino(@Header("Authorization")
                                 token:String, @Path("id") id:Long): Response<Message>
