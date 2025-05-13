@@ -8,7 +8,6 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import pe.edu.upeu.granturismojpc.model.DestinoResp
 import pe.edu.upeu.granturismojpc.model.PaqueteResp
@@ -48,8 +48,10 @@ data class PaqueteResp(
 @Composable
 fun PaqueteCard(
     paquete: PaqueteResp,
-    modifier: Modifier = Modifier
-) {
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+
+    ) {
     Card(
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
@@ -117,7 +119,9 @@ fun PaqueteCard(
             ) {
                 // Botón de Detalles
                 Button (
-                    onClick = { /* Acción de detalles */ },
+                    onClick = {
+                        navController.navigate("detallePaquete/${paquete.idPaquete}")
+                    },
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -138,7 +142,9 @@ fun PaqueteCard(
 
                 // Botón de WhatsApp
                 Button(
-                    onClick = { /* Acción de WhatsApp */ },
+                    onClick = {
+                        navController
+                    },
                     modifier = Modifier.size(48.dp),
                     shape = RoundedCornerShape(12.dp),
                     contentPadding = PaddingValues(0.dp),

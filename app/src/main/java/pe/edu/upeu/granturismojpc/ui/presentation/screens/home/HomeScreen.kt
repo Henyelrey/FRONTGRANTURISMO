@@ -116,7 +116,11 @@ fun HomeScreen(
 
             // Muestra los paquetes
             itemsIndexed (paquetes) { _, paquete ->
-                PaqueteCard(paquete = paquete)
+                PaqueteCard(
+                    paquete = paquete,
+                    modifier = Modifier,
+                    navController = navController
+                )
             }
 
 

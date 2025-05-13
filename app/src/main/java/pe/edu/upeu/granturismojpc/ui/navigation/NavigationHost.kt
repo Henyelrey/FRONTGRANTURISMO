@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.DetalleScreen
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla1
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla2
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla3
@@ -37,6 +38,7 @@ fun NavigationHost(
     navController: NavHostController,
     darkMode: MutableState<Boolean>,
     modif: PaddingValues
+
 ) {
     NavHost(
         navController = navController, startDestination =
@@ -208,6 +210,14 @@ fun NavigationHost(
             DestinoForm(text = destId, darkMode = darkMode,
                 navController=navController )
         }
+
+        composable("detallePaquete/{idPaquete}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("idPaquete")?.toLongOrNull()
+            if (id != null) {
+                DetalleScreen(idPaquete = id)
+            }
+        }
+
 
 
 
