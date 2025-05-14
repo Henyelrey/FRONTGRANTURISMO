@@ -214,7 +214,7 @@ fun NavigationHost(
         composable("detallePaquete/{idPaquete}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("idPaquete")?.toLongOrNull()
             if (id != null) {
-                DetalleScreen(idPaquete = id)
+                DetalleScreen(idPaquete = id, navController=navController)
             }
         }
 
