@@ -1,11 +1,21 @@
 package pe.edu.upeu.granturismojpc.ui.presentation.screens
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Flag
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Person4
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -51,9 +61,6 @@ fun DetalleScreen(
     val openDialog = { println("Abriendo diálogo de filtros...") }
     val displaySnackBar = { println("Mostrando snackbar...") }
     val searchQuery = remember { mutableStateOf("") }
-
-
-
 
 
     // Interfaz simple
@@ -157,7 +164,11 @@ fun DetalleScreen(
                             else -> {
                                 Text(
                                     text = " ${paquete.titulo}",
-                                    style = TextStyle(color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                                    style = TextStyle(
+                                        color = Color.White,
+                                        fontSize = 24.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                 )
 
                             }
@@ -206,19 +217,91 @@ fun DetalleScreen(
                         }
 
                         else -> {
-                            Text(text = " ${paquete.titulo}", fontSize = 24.sp)
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(text = "Descripción: ${paquete.descripcion}")
-                            Text(text = "Precio: S/ ${paquete.precioTotal}")
-                            Text(text = "Imagen: ${paquete.imagenUrl}")
+                            Row {
+                                Text(text = "${paquete.proveedor.nombreCompleto}")
+                                Text(text = " - ${paquete.estado}")
+                                Text(text = " - ${paquete.duracionDias} dias")
+                            }
+                            Text(text = "${paquete.descripcion}")
+                            Text(text = "Preciio: ${paquete.precioTotal}")
+
+
+
+                            Row {
+                                Icon(
+                                    imageVector = Icons.Filled.LocationOn,
+                                    contentDescription = "",
+                                    tint = Color.Black,
+                                    modifier = Modifier.padding(end = 8.dp)
+                                )
+                                Text(text = "${paquete.destino.ubicacion}")
+                            }
+                            Row {
+                                Icon(
+                                    imageVector = Icons.Filled.Person4,
+                                    contentDescription = "",
+                                    tint = Color.Black,
+                                    modifier = Modifier.padding(end = 8.dp)
+                                )
+                                Text(text = "${paquete.cuposMaximos} personas")
+                            }
                         }
                     }
                 }
             }
 
+            item {
+                Text(
+                    text = "Ubicación",
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = Modifier.padding(top = 8.dp, start = 20.dp, end = 20.dp)
+                )
+            }
+            item {
+                Text("Aca va el mapa :)")
+            }
+
+            item {
+                LazyRow {
+                    item {
+                        Text(
+                            text = "Ver las actividades",
+                            style = TextStyle(
+                                color = MaterialTheme.colorScheme.onBackground,
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold
+                            ),
+                            modifier = Modifier.padding(top = 8.dp, start = 20.dp, end = 20.dp)
+                        )
+
+                        Button(
+                            onClick = {
+                                navController
+                            },
+                            modifier = Modifier.size(48.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            contentPadding = PaddingValues(0.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFFFA726) // Color verde de WhatsApp
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowForward, // Puedes usar otro ícono si deseas
+                                contentDescription = "Actividades",
+                                tint = Color.Black
+                            )
+                        }
+
+                    }
 
 
 
+                }
+            }
 
 
 
