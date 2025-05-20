@@ -1,6 +1,7 @@
 package pe.edu.upeu.granturismojpc.ui.presentation.screens
 
 
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -55,7 +56,9 @@ import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
-
+import com.mapbox.maps.plugin.annotation.annotations
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
+import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
 
 
 @Composable
@@ -276,8 +279,15 @@ fun DetalleScreen(
                 )
             }
             item {
-                MapScreen()
+                paquete?.let {
+                    MapScreen(latitud = paquete.destino.latitud,
+                        longitud = paquete.destino.longitud)
+                } ?: run {
+                    // Si el paquete es null o no tiene coordenadas, puedes mostrar un mensaje o un mapa por defecto
+                    Text("Ubicación no disponible")
+                }
             }
+
 
             item {
                 LazyRow {
@@ -324,17 +334,42 @@ fun DetalleScreen(
 }
 
 @Composable
-fun MapScreen() {
+fun MapScreen(latitud: Double, longitud: Double) {
     AndroidView(
         factory = { context ->
             MapView(context).apply {
-                getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS) {
-                    getMapboxMap().setCamera(
+                val punto = Point.fromLngLat(longitud, latitud)
+                val mapboxMap = getMapboxMap()
+
+                mapboxMap.loadStyleUri(Style.MAPBOX_STREETS) { style ->
+                    // Establecer la cámara
+                    mapboxMap.setCamera(
                         CameraOptions.Builder()
-                            .center(Point.fromLngLat(-70.246274, -15.500284)) // Ubicación de Puno, Perú
+                            .center(punto)
                             .zoom(12.0)
                             .build()
                     )
+
+                    // Cargar el bitmap desde drawable
+                    val bitmap = BitmapFactory.decodeResource(
+                        context.resources,
+                        R.drawable.red_marker // Asegúrate que exista este archivo en res/drawable
+                    )
+
+                    // Registrar el bitmap como imagen con nombre "custom-marker"
+                    style.addImage("custom-marker", bitmap)
+
+                    // Crear el manejador de anotaciones
+                    val annotationApi = annotations
+                    val pointAnnotationManager = annotationApi.createPointAnnotationManager()
+
+                    // Configurar y crear el marcador
+                    val pointAnnotationOptions = PointAnnotationOptions()
+                        .withPoint(punto)
+                        .withIconImage("custom-marker") // Usa el nombre registrado
+                        .withIconSize(1.5)
+
+                    pointAnnotationManager.create(pointAnnotationOptions)
                 }
             }
         },
@@ -343,4 +378,6 @@ fun MapScreen() {
             .height(240.dp)
     )
 }
+
+
 
