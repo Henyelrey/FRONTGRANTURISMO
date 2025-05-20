@@ -54,10 +54,12 @@ import pe.edu.upeu.granturismojpc.utils.TokenUtils
 import pe.edu.upeu.granturismojpc.utils.isNight
 
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             val themeType= remember{ mutableStateOf(ThemeType.ORANGE) }

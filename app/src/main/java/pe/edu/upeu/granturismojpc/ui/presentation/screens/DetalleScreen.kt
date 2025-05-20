@@ -1,5 +1,6 @@
 package pe.edu.upeu.granturismojpc.ui.presentation.screens
 
+
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -42,6 +43,19 @@ import pe.edu.upeu.granturismojpc.ui.presentation.components.TopBar
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.paquete.PaqueteMainViewModel
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.paquete.PaqueteMainViewModel_Factory
 import coil.compose.AsyncImage
+import com.mapbox.maps.extension.compose.MapboxMap
+import com.mapbox.maps.extension.style.expressions.dsl.generated.zoom
+
+//importaciones mapbox:
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.viewinterop.AndroidView
+
+import com.mapbox.geojson.Point
+import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.MapView
+import com.mapbox.maps.Style
+
 
 
 @Composable
@@ -262,7 +276,7 @@ fun DetalleScreen(
                 )
             }
             item {
-                Text("Aca va el mapa :)")
+                MapScreen()
             }
 
             item {
@@ -309,4 +323,24 @@ fun DetalleScreen(
     }
 }
 
+@Composable
+fun MapScreen() {
+    AndroidView(
+        factory = { context ->
+            MapView(context).apply {
+                getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS) {
+                    getMapboxMap().setCamera(
+                        CameraOptions.Builder()
+                            .center(Point.fromLngLat(-70.246274, -15.500284)) // Ubicación de Puno, Perú
+                            .zoom(12.0)
+                            .build()
+                    )
+                }
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(240.dp)
+    )
+}
 
