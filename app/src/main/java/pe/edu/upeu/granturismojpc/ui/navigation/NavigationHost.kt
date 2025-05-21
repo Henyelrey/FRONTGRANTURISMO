@@ -338,7 +338,8 @@ fun NavigationHost(
             })
         ) { backStackEntry ->
             val idPaquete = backStackEntry.arguments?.getLong("idPaquete") ?: -1L
-            Actividades(idPaquete = idPaquete)
+            Actividades(idPaquete = idPaquete,
+                navController = navController)
         }
 
     }
