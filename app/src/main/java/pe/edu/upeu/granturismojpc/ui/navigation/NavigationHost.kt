@@ -5,15 +5,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.Actividades
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.DetalleScreen
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla1
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla2
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla3
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla4
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla5
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividad.ActividadForm
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividad.ActividadMain
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividaddetalle.ActividadDetalleForm
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividaddetalle.ActividadDetalleMain
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.destino.DestinoForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.destino.DestinoMain
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.home.HomeScreen
@@ -21,9 +27,12 @@ import pe.edu.upeu.granturismojpc.ui.presentation.screens.home.HomeViewModel
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.login.LoginScreen
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.paquete.PaqueteForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.paquete.PaqueteMain
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.paquetedetalle.PaqueteDetalleForm
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.paquetedetalle.PaqueteDetalleMain
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.proveedor.ProveedorForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.proveedor.ProveedorMain
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.register.RegisterScreen
+
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.servicio.ServicioForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.servicio.ServicioMain
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.servicioalimentacion.ServicioAlimentacionForm
@@ -219,7 +228,123 @@ fun NavigationHost(
         }
 
 
+        composable(
+            route = Destinations.PaqueteDetalleMainSC.route,
+            arguments = listOf(
+                navArgument("packId") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+            val packId = navBackStackEntry.arguments?.getString("packId")
+            requireNotNull(packId)
 
+            PaqueteDetalleMain(
+                text = packId,
+                navegarEditarAct = { detId, packIdValue ->
+                    navController.navigate(Destinations.PaqueteDetalleFormSC.passId(detId, packIdValue))
+                },
+                navController = navController
+            )
+        }
+        composable(
+            route = Destinations.PaqueteDetalleFormSC.route,
+            arguments = listOf(
+                navArgument("detId") {
+                    defaultValue = "detId"
+                    type = NavType.StringType
+                },
+                navArgument("packId") {
+                    defaultValue = "0"
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+            val detId = navBackStackEntry.arguments?.getString("detId")
+            val packId = navBackStackEntry.arguments?.getString("packId")
+            requireNotNull(detId)
+            requireNotNull(packId)
+
+            PaqueteDetalleForm(
+                text = detId,
+                packId = packId,
+                darkMode = darkMode,
+                navController = navController
+            )
+        }
+        composable(Destinations.ActividadMainSC.route){
+            ActividadMain(navegarEditarAct = {newText->
+                navController.navigate(Destinations.ActividadFormSC.passId(newText))},
+                navController =navController )
+        }
+        composable(Destinations.ActividadFormSC.route, arguments =
+            listOf(navArgument("actvId"){
+                defaultValue="actvId"
+            })){navBackStackEntry -> var
+                actvId=navBackStackEntry.arguments?.getString("actvId")
+            requireNotNull(actvId)
+            ActividadForm(text = actvId, darkMode = darkMode,
+                navController=navController )
+        }
+        composable(
+            route = Destinations.ActividadDetalleMainSC.route,
+            arguments = listOf(
+                navArgument("packId") {
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+            val packId = navBackStackEntry.arguments?.getString("packId")
+            requireNotNull(packId)
+
+            ActividadDetalleMain(
+                text = packId,
+                navegarEditarAct = { detId, packIdValue ->
+                    navController.navigate(Destinations.ActividadDetalleFormSC.passId(detId, packIdValue))
+                },
+                navController = navController
+            )
+        }
+        composable(
+            route = Destinations.ActividadDetalleFormSC.route,
+            arguments = listOf(
+                navArgument("detId") {
+                    defaultValue = "detId"
+                    type = NavType.StringType
+                },
+                navArgument("packId") {
+                    defaultValue = "0"
+                    type = NavType.StringType
+                }
+            )
+        ) { navBackStackEntry ->
+            val detId = navBackStackEntry.arguments?.getString("detId")
+            val packId = navBackStackEntry.arguments?.getString("packId")
+            requireNotNull(detId)
+            requireNotNull(packId)
+
+            ActividadDetalleForm(
+                text = detId,
+                packId = packId,
+                darkMode = darkMode,
+                navController = navController
+            )
+        }
+
+        composable(
+            route = "actividades/{idPaquete}",
+            arguments = listOf(navArgument("idPaquete") {
+                type = NavType.LongType
+            })
+        ) { backStackEntry ->
+            val idPaquete = backStackEntry.arguments?.getLong("idPaquete") ?: -1L
+            Actividades(idPaquete = idPaquete)
+        }
 
     }
+
+
+
+
+
 }

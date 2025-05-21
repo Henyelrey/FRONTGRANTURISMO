@@ -304,7 +304,8 @@ fun DetalleScreen(
 
                         Button(
                             onClick = {
-                                navController
+                                navController.navigate("actividades/${idPaquete}")
+
                             },
                             modifier = Modifier.size(48.dp),
                             shape = RoundedCornerShape(12.dp),

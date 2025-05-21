@@ -116,6 +116,58 @@ sealed class Destinations(
         }
     }
 
+    object ResenaMainSC:
+        Destinations("ResenaMain/{packId}","Adm. Reseñas",
+            Icons.Filled.DateRange){
+        fun passId(packId: String): String {
+            return "ResenaMain/$packId"
+        }
+    }
+    object ResenaFormSC:
+        Destinations("ResenaForm?resId={resId}&packId={packId}", "Form Reseñas",
+            Icons.Filled.Add){
+        fun passId(resId:String?, packId: String? = "0"):String{
+            return "ResenaForm?resId=$resId&packId=$packId"
+        }
+    }
+    object PaqueteDetalleMainSC:
+        Destinations("PaqueteDetalleMain/{packId}","Adm. Detalles",
+            Icons.Filled.DateRange){
+        fun passId(packId: String): String {
+            return "PaqueteDetalleMain/$packId"
+        }
+    }
+    object PaqueteDetalleFormSC:
+        Destinations("PaqueteDetalleForm?detId={detId}&packId={packId}", "Form Detalles",
+            Icons.Filled.Add){
+        fun passId(detId: String?, packId: String? = "0"): String {
+            return "PaqueteDetalleForm?detId=$detId&packId=$packId"
+        }
+    }
+
+    object ActividadMainSC: Destinations("actividadmain","Adm. Actividad", Icons.Filled.DateRange)
+    object ActividadFormSC:
+        Destinations("actividadForm?actvId={actvId}", "Form Actividad",
+            Icons.Filled.Add){
+        fun passId(actvId:String?):String{
+            return "actividadForm?actvId=$actvId"
+        }
+    }
+    object ActividadDetalleMainSC:
+        Destinations("ActividadDetalleMain/{packId}","Adm. Detalles",
+            Icons.Filled.DateRange){
+        fun passId(packId: String): String {
+            return "ActividadDetalleMain/$packId"
+        }
+    }
+    object ActividadDetalleFormSC:
+        Destinations("ActividadDetalleForm?detId={detId}&packId={packId}", "Form Detalles",
+            Icons.Filled.Add){
+        fun passId(detId:String?, packId: String? = "0"):String{
+            return "ActividadDetalleForm?detId=$detId&packId=$packId"
+        }
+    }
+
 
 
 }

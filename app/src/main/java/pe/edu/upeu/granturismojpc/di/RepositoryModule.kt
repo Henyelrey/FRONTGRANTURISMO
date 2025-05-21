@@ -4,12 +4,20 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import pe.edu.upeu.granturismojpc.repository.ActividadDetalleRepository
+import pe.edu.upeu.granturismojpc.repository.ActividadDetalleRepositoryImpl
+import pe.edu.upeu.granturismojpc.repository.ActividadRepository
+import pe.edu.upeu.granturismojpc.repository.ActividadRepositoryImp
 import pe.edu.upeu.granturismojpc.repository.DestinoRepository
 import pe.edu.upeu.granturismojpc.repository.DestinoRepositoryImp
+import pe.edu.upeu.granturismojpc.repository.PaqueteDetalleRepository
+import pe.edu.upeu.granturismojpc.repository.PaqueteDetalleRepositoryImpl
 import pe.edu.upeu.granturismojpc.repository.PaqueteRepository
 import pe.edu.upeu.granturismojpc.repository.PaqueteRepositoryImp
 import pe.edu.upeu.granturismojpc.repository.ProveedorRepository
 import pe.edu.upeu.granturismojpc.repository.ProveedorRepositoryImp
+import pe.edu.upeu.granturismojpc.repository.ResenaRepository
+import pe.edu.upeu.granturismojpc.repository.ResenaRepositoryImp
 import pe.edu.upeu.granturismojpc.repository.ServicioAlimentacionRepository
 import pe.edu.upeu.granturismojpc.repository.ServicioAlimentacionRepositoryImp
 import pe.edu.upeu.granturismojpc.repository.ServicioArtesaniaRepository
@@ -72,5 +80,22 @@ abstract class RepositoryModule {
     abstract fun servicioHotelRepository(servhotRepos:
                                        ServicioHoteleraRepositoryImp): ServicioHoteleraRepository
 
+    @Binds
+    @Singleton
+    abstract fun resenaRepository(resRepos:
+                                  ResenaRepositoryImp): ResenaRepository
+    @Binds
+    @Singleton
+    abstract fun paqueteDetalleRepository(packdetRepos:
+                                          PaqueteDetalleRepositoryImpl): PaqueteDetalleRepository
 
+    @Binds
+    @Singleton
+    abstract fun actividadRepository(actvRepos:
+                                     ActividadRepositoryImp): ActividadRepository
+
+    @Binds
+    @Singleton
+    abstract fun actividadDetalleRepository(actvdetRepos:
+                                            ActividadDetalleRepositoryImpl): ActividadDetalleRepository
 }

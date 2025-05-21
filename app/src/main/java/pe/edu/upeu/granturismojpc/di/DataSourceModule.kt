@@ -5,9 +5,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import pe.edu.upeu.granturismojpc.data.remote.RestActividad
+import pe.edu.upeu.granturismojpc.data.remote.RestActividadDetalle
 import pe.edu.upeu.granturismojpc.data.remote.RestDestino
 import pe.edu.upeu.granturismojpc.data.remote.RestPaquete
+import pe.edu.upeu.granturismojpc.data.remote.RestPaqueteDetalle
 import pe.edu.upeu.granturismojpc.data.remote.RestProveedor
+import pe.edu.upeu.granturismojpc.data.remote.RestResena
 import pe.edu.upeu.granturismojpc.data.remote.RestServicio
 import pe.edu.upeu.granturismojpc.data.remote.RestServicioAlimentacion
 import pe.edu.upeu.granturismojpc.data.remote.RestServicioArtesania
@@ -96,6 +100,28 @@ class DataSourceModule {
     @Provides
     fun restTipoServicioHotelera(retrofit: Retrofit): RestServicioHotelera{
         return retrofit.create(RestServicioHotelera::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun restResenas(retrofit: Retrofit): RestResena{
+        return retrofit.create(RestResena::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun restPaqueteDetalle(retrofit: Retrofit): RestPaqueteDetalle{
+        return retrofit.create(RestPaqueteDetalle::class.java)
+    }
+    @Singleton
+    @Provides
+    fun restActividad(retrofit: Retrofit): RestActividad{
+        return retrofit.create(RestActividad::class.java)
+    }
+    @Singleton
+    @Provides
+    fun restActividadDetalle(retrofit: Retrofit): RestActividadDetalle{
+        return retrofit.create(RestActividadDetalle::class.java)
     }
 
 }
